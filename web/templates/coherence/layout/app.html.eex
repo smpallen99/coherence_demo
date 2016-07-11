@@ -7,26 +7,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello CoherenceDemo!</title>
+    <title>Hello Admin1!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
     <div class="container">
-      <header class="header" style="padding-top: 15px">
-        <%= if @current_user do %>
-          <nav role="navigation">
-            <ul class="nav nav-pills pull-left" style="margin-top: 0px">
-              <li><a href="/posts">Posts</a></li>
-            </ul>
-          </nav>
-        <% end %>
-        <ol class="breadcrumb text-right">
-          <%= if @current_user do %>
-            <li><%= CoherenceDemo.Coherence.ViewHelpers.invitation_link(@conn) %></li>
-          <% end %>
-          <%= CoherenceDemo.Coherence.ViewHelpers.coherence_links(@conn, :layout) %>
-        </ol>
+      <header class="header">
+        <nav role="navigation">
+        </nav>
+        <span class="logo"></span>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
