@@ -12,6 +12,6 @@
 
 CoherenceDemo.Repo.delete_all CoherenceDemo.User
 
-CoherenceDemo.User.changeset(%CoherenceDemo.User{}, %{name: "Demo User", email: "smpallen99@yahoo.com", password: "test", password_confirmation: "test"})
+CoherenceDemo.User.changeset(%CoherenceDemo.User{}, %{name: "Demo User", email: "demouser@example.com", password: "secret", password_confirmation: "secret"})
 |> CoherenceDemo.Repo.insert!
 |> CoherenceDemo.User.confirm!
