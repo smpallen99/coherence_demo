@@ -11,7 +11,7 @@ defmodule CoherenceDemo.Repo.Migrations.CreateCoherenceUser do
       # rememberable
       add :remember_created_at, :datetime
       # authenticatable
-      add :hashed_password, :string
+      add :password_hash, :string
       # recoverable
       add :reset_password_token, :string
       add :reset_password_sent_at, :datetime
@@ -26,7 +26,7 @@ defmodule CoherenceDemo.Repo.Migrations.CreateCoherenceUser do
       add :last_sign_in_ip, :string
       # unlockable_with_token
       add :unlock_token, :string
-      
+
       timestamps()
     end
     create unique_index(:users, [:email])
