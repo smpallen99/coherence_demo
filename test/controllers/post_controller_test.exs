@@ -1,9 +1,22 @@
 defmodule CoherenceDemo.PostControllerTest do
   use CoherenceDemo.ConnCase
 
-  alias CoherenceDemo.Post
+  alias CoherenceDemo.{Post, User}
   @valid_attrs %{body: "some content", title: "some content"}
   @invalid_attrs %{}
+
+  setup %{conn: conn} do
+    user = %User{name: "test", email: "test@example.com", id: 1}
+    {:ok, conn: assign(conn, :current_user, user), user: user}
+  end
+
+  test "required login" do
+    conn = %Plug.Conn{}
+    conn = get conn, post_path(conn, :index)
+    assert html_response(conn, 200) =~ "action=\"/sessions\""
+    assert conn.resp_body =~ "Email"
+    assert conn.resp_body =~ "Password"
+  end
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, post_path(conn, :index)

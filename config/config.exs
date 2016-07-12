@@ -32,10 +32,11 @@ config :coherence,
   repo: CoherenceDemo.Repo,
   module: CoherenceDemo,
   logged_out_url: "/",
-  email_from: {"Your Name", "yourname@example.com"},
+  email_from: {"", ""},
   opts: [:confirmable, :rememberable, :registerable, :invitable, :authenticatable, :recoverable, :lockable, :trackable, :unlockable_with_token]
+
 
 config :coherence, CoherenceDemo.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
-  api_key: "your api key here"
+  api_key: ""
 # %% End Coherence Configuration %%

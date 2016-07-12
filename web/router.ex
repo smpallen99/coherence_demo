@@ -41,6 +41,10 @@ defmodule CoherenceDemo.Router do
   scope "/", CoherenceDemo do
     pipe_through :browser
     resources "/posts", PostController
+    resources "/users", UserController
+    put "/lock/:id", UserController, :lock
+    put "/unlock/:id", UserController, :unlock
+    put "/confirm/:id", UserController, :confirm
   end
 
   # Other scopes may use custom stacks.

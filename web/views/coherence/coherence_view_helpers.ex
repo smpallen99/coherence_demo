@@ -1,6 +1,5 @@
 defmodule CoherenceDemo.Coherence.ViewHelpers do
   use Phoenix.HTML
-  alias Coherence.Router.Helpers
   alias Coherence.Config
 
   @seperator {:safe, "&nbsp; | &nbsp;"}

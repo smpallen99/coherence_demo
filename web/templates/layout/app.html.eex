@@ -18,6 +18,7 @@
           <nav role="navigation">
             <ul class="nav nav-pills pull-left" style="margin-top: 0px">
               <li><a href="/posts">Posts</a></li>
+              <li><a href="/users">Users</a></li>
             </ul>
           </nav>
         <% end %>

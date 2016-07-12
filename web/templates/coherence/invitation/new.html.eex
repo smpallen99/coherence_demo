@@ -21,5 +21,9 @@
   <div class="form-group">
     <%= submit "Send Invitation", class: "btn btn-primary" %>
     <%= link "Cancel", to: Coherence.Config.logged_out_url("/"), class: "btn" %>
+    <%= if invitation = @conn.assigns[:invitation] do %>
+      <%= link "Resend Invitation!", to: invitation_path(@conn, :resend, invitation.id), class: "btn" %>
+    <% end %>
   </div>
+
 <% end %>

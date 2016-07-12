@@ -1,4 +1,4 @@
-<br \>
+<h3>Register Account</h3>
 
 <%= form_for @changeset, registration_path(@conn, :create), [as: :registration], fn f  -> %>
 
