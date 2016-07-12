@@ -35,7 +35,6 @@ config :coherence,
   email_from: {"", ""},
   opts: [:confirmable, :rememberable, :registerable, :invitable, :authenticatable, :recoverable, :lockable, :trackable, :unlockable_with_token]
 
-
 config :coherence, CoherenceDemo.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
   api_key: ""
