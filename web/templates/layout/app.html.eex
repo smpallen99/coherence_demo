@@ -24,6 +24,9 @@
         <% end %>
         <ol class="breadcrumb text-right">
           <%= if @current_user do %>
+            <%= if @conn.assigns[:remembered] do %>
+              <li style="color: red;">!!</li>
+            <% end %>
             <li><%= CoherenceDemo.Coherence.ViewHelpers.invitation_link(@conn) %></li>
           <% end %>
           <%= CoherenceDemo.Coherence.ViewHelpers.coherence_links(@conn, :layout) %>
