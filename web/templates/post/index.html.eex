@@ -4,6 +4,9 @@
   <thead>
     <tr>
       <th>Title</th>
+      <%= if @current_user.admin do %>
+        <th>Poster</th>
+      <% end %>
       <th>Body</th>
 
       <th></th>
@@ -13,6 +16,9 @@
 <%= for post <- @posts do %>
     <tr>
       <td><%= post.title %></td>
+      <%= if @current_user.admin do %>
+        <td><%= post.user.name %></td>
+      <% end %>
       <td><%= post.body %></td>
 
       <td class="text-right">

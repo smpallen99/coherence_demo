@@ -52,6 +52,7 @@ defmodule CoherenceDemo.Web do
       import CoherenceDemo.Router.Helpers
       import CoherenceDemo.ErrorHelpers
       import CoherenceDemo.Gettext
+      import Canada.Can
     end
   end
 

@@ -39,3 +39,5 @@ config :coherence, CoherenceDemo.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
   api_key: ""
 # %% End Coherence Configuration %%
+
+config :canary, repo: CoherenceDemo.Repo

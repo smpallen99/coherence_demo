@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
+      <th>Admin</th>
       <th>Locked?</th>
       <th>Confirmed?</th>
       <th>Sign in count</th>
@@ -17,6 +18,7 @@
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
+      <td><%= user.admin %></td>
       <td><%= User.locked? user %></td>
       <td><%= User.confirmed? user %></td>
       <td><%= user.sign_in_count %></td>

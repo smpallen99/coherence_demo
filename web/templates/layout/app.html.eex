@@ -18,7 +18,12 @@
           <nav role="navigation">
             <ul class="nav nav-pills pull-left" style="margin-top: 0px">
               <li><a href="/posts">Posts</a></li>
-              <li><a href="/users">Users</a></li>
+              <%= if can? Coherence.current_user(@conn), :index, CoherenceDemo.User do %>
+                <li><a href="/users">Users</a></li>
+              <% end %>
+              <li>
+                <%= link "My Profile", to: user_path(@conn, :show, Coherence.current_user(@conn)) %>
+              </li>
             </ul>
           </nav>
         <% end %>

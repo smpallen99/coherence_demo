@@ -5,6 +5,8 @@
     </div>
   <% end %>
 
+  <input type="hidden", name="post[user_id]" value="<%= Coherence.current_user(@conn).id %>">
+
   <div class="form-group">
     <%= label f, :title, class: "control-label" %>
     <%= text_input f, :title, class: "form-control" %>

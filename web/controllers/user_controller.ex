@@ -1,12 +1,14 @@
 defmodule CoherenceDemo.UserController do
   use CoherenceDemo.Web, :controller
   use Timex
-
+  import Canary.Plugs
   alias CoherenceDemo.User
 
+  plug :load_and_authorize_resource, model: CoherenceDemo.User
+  use CoherenceDemo.ControllerAuthorization
+
   def index(conn, _params) do
-    users = Repo.all(User)
-    render(conn, "index.html", users: users)
+    render(conn, "index.html", users: conn.assigns[:users])
   end
 
   def new(conn, _params) do
@@ -27,19 +29,18 @@ defmodule CoherenceDemo.UserController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-    render(conn, "show.html", user: user)
+  def show(conn, %{}) do
+    render(conn, "show.html", user: conn.assigns[:user])
   end
 
-  def edit(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+  def edit(conn, %{}) do
+    user = conn.assigns[:user]
     changeset = User.changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Repo.get!(User, id)
+  def update(conn, %{"user" => user_params}) do
+    user = conn.assigns[:user]
     changeset = User.changeset(user, user_params)
 
     case Repo.update(changeset) do
@@ -52,8 +53,8 @@ defmodule CoherenceDemo.UserController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+  def delete(conn, %{}) do
+    user = conn.assigns[:user]
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).

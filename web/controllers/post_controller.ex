@@ -2,9 +2,16 @@ defmodule CoherenceDemo.PostController do
   use CoherenceDemo.Web, :controller
 
   alias CoherenceDemo.Post
+  import Canary.Plugs
+
+  plug :load_and_authorize_resource, model: CoherenceDemo.Post, preload: [:user]
+  use CoherenceDemo.ControllerAuthorization
 
   def index(conn, _params) do
-    posts = Repo.all(Post)
+    current_user = Coherence.current_user(conn)
+
+    posts = conn.assigns[:posts]
+    |> Enum.filter(&(&1.user_id == current_user.id || current_user.admin))
     render(conn, "index.html", posts: posts)
   end
 
@@ -26,19 +33,18 @@ defmodule CoherenceDemo.PostController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    post = Repo.get!(Post, id)
-    render(conn, "show.html", post: post)
+  def show(conn, %{}) do
+    render(conn, "show.html", post: conn.assigns[:post])
   end
 
-  def edit(conn, %{"id" => id}) do
-    post = Repo.get!(Post, id)
+  def edit(conn, %{}) do
+    post = conn.assigns[:post]
     changeset = Post.changeset(post)
-    render(conn, "edit.html", post: post, changeset: changeset)
+    render(conn, "edit.html", post: conn.assigns[:post], changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "post" => post_params}) do
-    post = Repo.get!(Post, id)
+  def update(conn, %{"post" => post_params}) do
+    post = conn.assigns[:post]
     changeset = Post.changeset(post, post_params)
 
     case Repo.update(changeset) do
@@ -51,8 +57,8 @@ defmodule CoherenceDemo.PostController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    post = Repo.get!(Post, id)
+  def delete(conn, %{}) do
+    post = conn.assigns[:post]
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).

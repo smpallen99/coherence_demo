@@ -2,6 +2,8 @@
 
 A Coherence Demo project illustrating how to use [Coherence](https://github.com/smpallen99/coherence).
 
+This branch demonstrates how to use [Canary](https://github.com/cpjk/canary) with Coherence for authorization.
+
 ## Installation
 
 ```bash

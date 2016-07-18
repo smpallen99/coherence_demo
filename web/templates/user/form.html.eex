@@ -17,6 +17,14 @@
     <%= error_tag f, :email %>
   </div>
 
+  <%= if Coherence.current_user(@conn).admin do %>
+    <div class="form-group">
+      <%= label f, :admin, class: "control-label" %>
+      <%= checkbox f, :admin, class: "form-control" %>
+      <%= error_tag f, :admin %>
+    </div>
+  <% end %>
+
   <div class="form-group">
     <%= label f, :password, class: "control-label" %>
     <%= password_input f, :password, class: "form-control" %>
