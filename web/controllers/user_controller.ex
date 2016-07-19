@@ -1,6 +1,7 @@
 defmodule CoherenceDemo.UserController do
   use CoherenceDemo.Web, :controller
   use Timex
+  alias Coherence.ControllerHelpers, as: Helpers
 
   alias CoherenceDemo.User
 
@@ -71,7 +72,7 @@ defmodule CoherenceDemo.UserController do
         |> put_flash(:error, "User not found")
         |> redirect(to: user_path(conn, :index))
       user ->
-        case User.confirm! user do
+        case Helpers.confirm! user do
           {:error, changeset}  ->
             conn
             |> put_flash(:error, format_errors(changeset))
@@ -92,7 +93,7 @@ defmodule CoherenceDemo.UserController do
         |> put_flash(:error, "User not found")
         |> redirect(to: user_path(conn, :index))
       user ->
-        case User.lock! user, locked_at do
+        case Helpers.lock! user, locked_at do
           {:error, changeset}  ->
             conn
             |> put_flash(:error, format_errors(changeset))
@@ -110,7 +111,7 @@ defmodule CoherenceDemo.UserController do
         |> put_flash(:error, "User not found")
         |> redirect(to: user_path(conn, :index))
       user ->
-        case User.unlock! user do
+        case Helpers.unlock! user do
           {:error, changeset}  ->
             conn
             |> put_flash(:error, format_errors(changeset))
