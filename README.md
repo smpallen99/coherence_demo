@@ -9,6 +9,7 @@ A Coherence Demo project illustrating how to use [Coherence](https://github.com/
   $ cd coherence_demo
   $ mix do deps.get, deps.compile
   $ mix ecto.setup
+  $ npm install
   $ iex -S mix phoenix.server
 ```
 
