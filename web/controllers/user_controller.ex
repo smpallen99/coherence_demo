@@ -1,5 +1,6 @@
 defmodule CoherenceDemo.UserController do
   use CoherenceDemo.Web, :controller
+  plug Coherence.Authentication.Session, protected: true
   use Timex
   alias Coherence.ControllerHelpers, as: Helpers
 

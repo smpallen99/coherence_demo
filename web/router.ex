@@ -11,14 +11,14 @@ defmodule CoherenceDemo.Router do
     plug Coherence.Authentication.Session
   end
 
-  pipeline :protected do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-    plug Coherence.Authentication.Session, protected: true
-  end
+  # pipeline :protected do
+  #   plug :accepts, ["html"]
+  #   plug :fetch_session
+  #   plug :fetch_flash
+  #   plug :protect_from_forgery
+  #   plug :put_secure_browser_headers
+  #   plug Coherence.Authentication.Session, protected: true
+  # end
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -26,20 +26,21 @@ defmodule CoherenceDemo.Router do
 
   scope "/" do
     pipe_through :browser
-    coherence_routes
+    coherence_routes :all
   end
-  scope "/" do
-    pipe_through :protected
-    coherence_routes :protected
-  end
+  # scope "/" do
+  #   pipe_through :protected
+  #   coherence_routes :protected
+  # end
+
+  # scope "/", CoherenceDemo do
+  #   pipe_through :browser
+  #   get "/", PageController, :index
+  # end
 
   scope "/", CoherenceDemo do
     pipe_through :browser
     get "/", PageController, :index
-  end
-
-  scope "/", CoherenceDemo do
-    pipe_through :protected
     resources "/posts", PostController
     resources "/users", UserController
     put "/lock/:id", UserController, :lock

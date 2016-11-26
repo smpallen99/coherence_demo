@@ -1,5 +1,6 @@
 defmodule CoherenceDemo.PostController do
   use CoherenceDemo.Web, :controller
+  plug Coherence.Authentication.Session, [protected: true] when action in [:create, :update, :new, :edit, :delete]
 
   alias CoherenceDemo.Post
 
