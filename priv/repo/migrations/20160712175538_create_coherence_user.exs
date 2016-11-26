@@ -7,7 +7,7 @@ defmodule CoherenceDemo.Repo.Migrations.CreateCoherenceUser do
       # confirmable
       add :confirmation_token, :string
       add :confirmed_at, :datetime
-      add :confirmation_send_at, :datetime
+      add :confirmation_sent_at, :datetime
       # rememberable
       add :remember_created_at, :datetime
       # authenticatable
@@ -26,7 +26,7 @@ defmodule CoherenceDemo.Repo.Migrations.CreateCoherenceUser do
       add :last_sign_in_ip, :string
       # unlockable_with_token
       add :unlock_token, :string
-      
+
       timestamps()
     end
     create unique_index(:users, [:email])

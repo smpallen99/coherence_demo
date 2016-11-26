@@ -17,4 +17,8 @@ defmodule CoherenceDemo.User do
     |> unique_constraint(:email)
     |> validate_coherence(params)
   end
+  def changeset(model, params, which) do
+    IO.puts "new changeset, which: #{inspect which}"
+    changeset model, params
+  end
 end

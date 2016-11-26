@@ -8,16 +8,16 @@ defmodule CoherenceDemo.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Coherence.Authentication.Session, login: true
+    plug Coherence.Authentication.Session
   end
 
-  pipeline :public do
+  pipeline :protected do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Coherence.Authentication.Session
+    plug Coherence.Authentication.Session, protected: true
   end
 
   pipeline :api do
@@ -25,21 +25,21 @@ defmodule CoherenceDemo.Router do
   end
 
   scope "/" do
-    pipe_through :public
-    coherence_routes :public
+    pipe_through :browser
+    coherence_routes
   end
   scope "/" do
-    pipe_through :browser
-    coherence_routes :private
+    pipe_through :protected
+    coherence_routes :protected
   end
 
   scope "/", CoherenceDemo do
-    pipe_through :public
+    pipe_through :browser
     get "/", PageController, :index
   end
 
   scope "/", CoherenceDemo do
-    pipe_through :browser
+    pipe_through :protected
     resources "/posts", PostController
     resources "/users", UserController
     put "/lock/:id", UserController, :lock

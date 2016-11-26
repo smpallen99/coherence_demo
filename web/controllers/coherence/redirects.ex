@@ -42,7 +42,7 @@ defmodule Coherence.Redirects do
 
   """
   use Redirects
-  import CoherenceDemo.Router.Helpers
+  # import CoherenceDemo.Router.Helpers
 
   # Add function overrides below
 
