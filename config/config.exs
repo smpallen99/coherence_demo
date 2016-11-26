@@ -28,12 +28,14 @@ config :coherence,
   repo: CoherenceDemo.Repo,
   module: CoherenceDemo,
   logged_out_url: "/",
-  email_from: {"Your Name", "yourname@example.com"},
+  allow_unconfirmed_access_for: 5,
+  email_from_name: {:system, "NAME"},
+  email_from_email: {:system, "EMAIL"},
   opts: [:registerable, :confirmable, :trackable, :lockable, :recoverable, :authenticatable, :invitable, :unlockable_with_token, :rememberable]
 
 config :coherence, CoherenceDemo.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
-  api_key: "your api key here"
+  api_key: {:system, "API_KEY"}
 # %% End Coherence Configuration %%
 
 # Import environment specific config. This must remain at the bottom
