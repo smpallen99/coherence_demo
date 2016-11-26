@@ -14,11 +14,8 @@ defmodule CoherenceDemo.User do
     model
     |> cast(params, [:name, :email] ++ coherence_fields)
     |> validate_required([:name, :email])
+    |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> validate_coherence(params)
-  end
-  def changeset(model, params, which) do
-    IO.puts "new changeset, which: #{inspect which}"
-    changeset model, params
   end
 end

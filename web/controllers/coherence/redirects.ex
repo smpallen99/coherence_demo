@@ -24,7 +24,7 @@ defmodule Coherence.Redirects do
   * confirmation_edit/2
   * confirmation_edit_error/2
 
-  You can ever ride any of the functions to customize the redirect path. Each
+  You can override any of the functions to customize the redirect path. Each
   function is passed the `conn` and `params` arguments from the controller.
 
   ## Examples
@@ -42,12 +42,13 @@ defmodule Coherence.Redirects do
 
   """
   use Redirects
+  # Uncomment the import below if adding overrides
   # import CoherenceDemo.Router.Helpers
 
   # Add function overrides below
 
   # Example usage
-  # uncomment the following line to return the user to the login form after logging out
+  # Uncomment the following line to return the user to the login form after logging out
   # def session_delete(conn, _), do: redirect(conn, session_path(conn, :new))
 
 end
