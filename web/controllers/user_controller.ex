@@ -84,7 +84,7 @@ defmodule CoherenceDemo.UserController do
   end
 
   def lock(conn, %{"id" => id}) do
-    locked_at = DateTime.now
+    locked_at = DateTime.utc_now
     |> Timex.shift(years: 10)
 
     case Repo.get User, id do
