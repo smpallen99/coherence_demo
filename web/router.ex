@@ -26,7 +26,7 @@ defmodule CoherenceDemo.Router do
 
   scope "/" do
     pipe_through :browser
-    coherence_routes
+    coherence_routes()
   end
   scope "/" do
     pipe_through :protected

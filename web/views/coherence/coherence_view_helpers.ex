@@ -4,17 +4,18 @@ defmodule CoherenceDemo.Coherence.ViewHelpers do
   """
   use Phoenix.HTML
   alias Coherence.Config
+  import CoherenceDemo.Gettext
 
   @seperator {:safe, "&nbsp; | &nbsp;"}
-  @helpers Module.concat(Application.get_env(:coherence, :module), Router.Helpers)
+  @helpers Module.concat(Config.router(), Helpers)
 
-  @recover_link  "Forgot your password?"
-  @unlock_link   "Send an unlock email"
-  @register_link "Need An Account?"
-  @invite_link   "Invite Someone"
-  @confirm_link  "Resend confirmation email"
-  @signin_link   "Sign In"
-  @signout_link  "Sign Out"
+  @recover_link  dgettext("coherence", "Forgot your password?")
+  @unlock_link   dgettext("coherence", "Send an unlock email")
+  @register_link dgettext("coherence", "Need An Account?")
+  @invite_link   dgettext("coherence", "Invite Someone")
+  @confirm_link  dgettext("coherence", "Resend confirmation email")
+  @signin_link   dgettext("coherence", "Sign In")
+  @signout_link  dgettext("coherence", "Sign Out")
 
   @doc """
   Create coherence template links.
@@ -66,7 +67,6 @@ defmodule CoherenceDemo.Coherence.ViewHelpers do
 
       coherence_links(conn, :layout)             # when not logged in
       Generates: #{@register_link}  #{@signin_link}
-
   """
   def coherence_links(conn, which, opts \\ [])
   def coherence_links(conn, :new_session, opts) do

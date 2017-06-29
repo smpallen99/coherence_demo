@@ -61,6 +61,7 @@ defmodule CoherenceDemo.UserControllerTest do
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
     user = Repo.insert! %User{}
     conn = put conn, user_path(conn, :update, user), user: @valid_attrs
+    conn |> IO.inspect(label: "conn")
     assert redirected_to(conn) == user_path(conn, :show, user)
     assert Repo.get_by(User, @base_attrs)
   end
