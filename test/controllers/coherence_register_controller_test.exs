@@ -5,7 +5,6 @@ defmodule CoherenceDemo.CoherenceRegisterControllerTest do
   alias CoherenceDemo.User
   @base_attrs %{email: "some@content", name: "some content"}
   @valid_attrs Enum.into [password: "secret", password_confirmation: "secret"], @base_attrs
-  @invalid_attrs %{}
 
   setup %{conn: conn} do
     {:ok, conn: conn}

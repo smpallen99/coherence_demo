@@ -1,4 +1,6 @@
 defmodule CoherenceDemo.Coherence.Mailer do
   @moduledoc false
-  use Swoosh.Mailer, otp_app: :coherence
+  if Coherence.Config.mailer?() do
+    use Swoosh.Mailer, otp_app: :coherence
+  end
 end
