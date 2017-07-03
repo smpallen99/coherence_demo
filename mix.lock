@@ -1,5 +1,5 @@
 %{"certifi": {:hex, :certifi, "1.2.1", "c3904f192bd5284e5b13f20db3ceac9626e14eeacfbb492e19583cf0e37b22be", [:rebar3], []},
-  "coherence": {:git, "https://github.com/smpallen99/coherence.git", "4b6ed2e0f5fe55097a21dfde9849ffb770234899", []},
+  "coherence": {:git, "https://github.com/smpallen99/coherence.git", "fde0e8f3a582364370a9bed40c50b567af4b9eb1", []},
   "combine": {:hex, :combine, "0.9.6", "8d1034a127d4cbf6924c8a5010d3534d958085575fa4d9b878f200d79ac78335", [:mix], []},
   "comeonin": {:hex, :comeonin, "3.1.0", "fbf18d43a7cfe7edebaa3bcf702d9a78821d3d3ed0c57c65419f99a8816dfaee", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, optional: false]}]},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], []},
