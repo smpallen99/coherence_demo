@@ -37,8 +37,8 @@ defmodule CoherenceDemo.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
-     # {:coherence, path: "../coherence2"},
-     {:coherence, github: "smpallen99/coherence"},
+     {:coherence, path: "../coherence2"},
+     # {:coherence, github: "smpallen99/coherence"},
      {:distillery, "~> 1.4.0"},
      {:cowboy, "~> 1.0"}]
   end
