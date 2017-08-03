@@ -35,9 +35,11 @@
   <li>
     <strong>Active?</strong>
     <%= if @user.active do %>
-      Yes
+      Yes -
+      <%= link gettext("Deactivate User!"), to: user_path(@conn, :deactivate, @user.id), "method": "put" %>
     <% else %>
-      No
+      No -
+      <%= link gettext("Activate User!"), to: user_path(@conn, :activate, @user.id), "method": "put" %>
     <% end %>
   </li>
 
