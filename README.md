@@ -4,6 +4,8 @@ A Coherence Demo project illustrating how to use [Coherence](https://github.com/
 
 This project demonstrates some of the features of Coherence on a very simple project.
 
+> This branch uses generated coherence controllers.
+
 > Updated for Phoenix 1.3
 
 ## Installation
@@ -40,5 +42,7 @@ Note, you will need to setup an sendgrid API key in config/config.exs to get the
   # added the `user_controller`, view, and templates manually
   # added some custom routes for the lock/unlock/etc behaviour
 
-  $mix ecto.setup
+  $ mix coh.gen.controllers
+
+  $ mix ecto.setup
 ```

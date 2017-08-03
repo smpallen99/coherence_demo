@@ -25,13 +25,13 @@ defmodule CoherenceDemoWeb.Router do
   end
 
   # Add this block
-  scope "/" do
+  scope "/", CoherenceDemoWeb do
     pipe_through :browser
     coherence_routes()
   end
 
   # Add this block
-  scope "/" do
+  scope "/", CoherenceDemoWeb do
     pipe_through :protected
     coherence_routes :protected
   end
