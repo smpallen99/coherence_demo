@@ -50,6 +50,8 @@ defmodule CoherenceDemoWeb.Router do
     put "/lock/:id", UserController, :lock
     put "/unlock/:id", UserController, :unlock
     put "/confirm/:id", UserController, :confirm
+    put "/activate/:id", UserController, :activate
+    put "/deactivate/:id", UserController, :deactivate
   end
 
   # Other scopes may use custom stacks.

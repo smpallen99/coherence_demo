@@ -4,6 +4,7 @@ defmodule CoherenceDemoWeb.UserController do
 
   alias Coherence.Controller
   alias CoherenceDemo.Coherence.User
+  alias CoherenceDemo.Coherence.Schemas
 
   def index(conn, _params) do
     users = Repo.all(User)
@@ -68,9 +69,7 @@ defmodule CoherenceDemoWeb.UserController do
   def confirm(conn, %{"id" => id}) do
     case Repo.get User, id do
       nil ->
-        conn
-        |> put_flash(:error, "User not found")
-        |> redirect(to: user_path(conn, :index))
+        user_not_found(conn)
       user ->
         case Controller.confirm! user do
           {:error, changeset}  ->
@@ -89,9 +88,7 @@ defmodule CoherenceDemoWeb.UserController do
 
     case Repo.get User, id do
       nil ->
-        conn
-        |> put_flash(:error, "User not found")
-        |> redirect(to: user_path(conn, :index))
+        user_not_found(conn)
       user ->
         case Controller.lock! user, locked_at do
           {:error, changeset}  ->
@@ -107,9 +104,7 @@ defmodule CoherenceDemoWeb.UserController do
   def unlock(conn, %{"id" => id}) do
     case Repo.get User, id do
       nil ->
-        conn
-        |> put_flash(:error, "User not found")
-        |> redirect(to: user_path(conn, :index))
+        user_not_found(conn)
       user ->
         case Controller.unlock! user do
           {:error, changeset}  ->
@@ -121,6 +116,25 @@ defmodule CoherenceDemoWeb.UserController do
         |> redirect(to: user_path(conn, :show, user.id))
     end
   end
+
+  def activate(conn, %{"id" => id}) do
+    case Repo.get User, id do
+      nil ->
+        user_not_found(conn)
+      user ->
+        activate_user(conn, user)
+    end
+  end
+
+  def deactivate(conn, %{"id" => id}) do
+    case Repo.get User, id do
+      nil ->
+        user_not_found(conn)
+      user ->
+        deactivate_user(conn, user)
+    end
+  end
+
   defp format_errors(changeset) do
     for error <- changeset.errors do
       case error do
@@ -131,5 +145,33 @@ defmodule CoherenceDemoWeb.UserController do
       end
     end
     |> Enum.join("<br \>\n")
+  end
+
+  defp user_not_found(conn) do
+    conn
+    |> put_flash(:error, gettext("User not found"))
+    |> redirect(to: user_path(conn, :index))
+  end
+
+  def activate_user(conn, user) do
+    case Schemas.update_user user, %{active: true} do
+      {:ok, _user} ->
+        put_flash(conn, :info, gettext("User activated!"))
+      {:error, changeset} ->
+        put_flash(conn, :error, format_errors(changeset))
+    end
+    |> redirect(to: user_path(conn, :show, user.id))
+  end
+
+  def deactivate_user(conn, user) do
+    case Schemas.update_user user, %{active: false} do
+      {:ok, user} ->
+        conn
+        |> Coherence.Authentication.Session.delete_login(all: user)
+        |> put_flash(:info, gettext("User deactivated!"))
+      {:error, changeset} ->
+        put_flash(conn, :error, format_errors(changeset))
+    end
+    |> redirect(to: user_path(conn, :show, user.id))
   end
 end
