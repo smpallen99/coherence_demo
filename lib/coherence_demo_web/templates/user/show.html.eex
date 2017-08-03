@@ -1,0 +1,52 @@
+<h2>Show user</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </li>
+
+  <li>
+    <strong>Locked?</strong>
+    <%= if User.locked? @user do %>
+       Yes -
+      <%= link "Unlock User!", to: user_path(@conn, :unlock, @user.id), "method": :put %>
+    <% else %>
+      No
+    <% end %>
+  </li>
+
+  <li>
+    <strong>Confirmed?</strong>
+    <%= if User.confirmed? @user do %>
+      Yes
+    <% else %>
+      No -
+      <%= link "Confirm User!", to: user_path(@conn, :confirm, @user.id), "method": :put %>
+    <% end %>
+  </li>
+
+  <li>
+    <strong>Active?</strong>
+    <%= if @user.active do %>
+      Yes
+    <% else %>
+      No
+    <% end %>
+  </li>
+
+  <li>
+    <strong>Sign in count:</strong>
+    <%= @user.sign_in_count %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_path(@conn, :edit, @user) %> |
+<%= link "Back", to: user_path(@conn, :index) %>

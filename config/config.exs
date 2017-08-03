@@ -7,13 +7,14 @@ use Mix.Config
 
 # General application configuration
 config :coherence_demo,
-  ecto_repos: [CoherenceDemo.Repo]
+  ecto_repos: [CoherenceDemo.Repo],
+  generators: [binary_id: true]
 
 # Configures the endpoint
-config :coherence_demo, CoherenceDemo.Endpoint,
+config :coherence_demo, CoherenceDemoWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "fTFYZEpE/kju9exPqROgdfG70aYEQz/qAKJ/SowNcfkiBf9etSamqKe3X8bp7Q9C",
-  render_errors: [view: CoherenceDemo.ErrorView, accepts: ~w(html json)],
+  secret_key_base: "5/uvDSgp4hmTvBNGyr7jC3NNx+7xm7+9qGugp5DbqDvihNY+e+73kZe/A15l9MoK",
+  render_errors: [view: CoherenceDemoWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: CoherenceDemo.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
@@ -24,19 +25,21 @@ config :logger, :console,
 
 # %% Coherence Configuration %%   Don't remove this line
 config :coherence,
-  user_schema: CoherenceDemo.User,
+  user_schema: CoherenceDemo.Coherence.User,
   repo: CoherenceDemo.Repo,
   module: CoherenceDemo,
-  router: CoherenceDemo.Router,
-  messages_backend: CoherenceDemo.Coherence.Messages,
+  web_module: CoherenceDemoWeb,
+  router: CoherenceDemoWeb.Router,
+  messages_backend: CoherenceDemoWeb.Coherence.Messages,
   require_current_password: false,
   logged_out_url: "/",
   allow_unconfirmed_access_for: 5,
+  user_active_field: true,
   email_from_name: {:system, "NAME"},
   email_from_email: {:system, "EMAIL"},
-  opts: [:registerable, :confirmable, :trackable, :lockable, :recoverable, :authenticatable, :invitable, :unlockable_with_token, :rememberable]
+  opts: [:rememberable, :unlockable_with_token, :invitable, :recoverable, :lockable, :trackable, :confirmable, :registerable, :authenticatable]
 
-config :coherence, CoherenceDemo.Coherence.Mailer,
+config :coherence, CoherenceDemoWeb.Coherence.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
   api_key: {:system, "API_KEY"}
 # %% End Coherence Configuration %%

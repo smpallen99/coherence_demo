@@ -1,11 +1,11 @@
-defmodule CoherenceDemo.ChannelCase do
+defmodule CoherenceDemoWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
 
   Such tests rely on `Phoenix.ChannelTest` and also
   import other functionality to make it easier
-  to build and query models.
+  to build common datastructures and query the data layer.
 
   Finally, if the test case interacts with the database,
   it cannot be async. For this reason, every test runs
@@ -20,24 +20,18 @@ defmodule CoherenceDemo.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias CoherenceDemo.Repo
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
-
-
       # The default endpoint for testing
-      @endpoint CoherenceDemo.Endpoint
+      @endpoint CoherenceDemoWeb.Endpoint
     end
   end
+
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(CoherenceDemo.Repo)
-
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(CoherenceDemo.Repo, {:shared, self()})
     end
-
     :ok
   end
+
 end
