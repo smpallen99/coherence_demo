@@ -25,3 +25,12 @@ npm-debug.log
 # secrets files as long as you replace their contents by environment
 # variables.
 /config/*.secret.exs
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# vim
+*.vim
+*.swp
