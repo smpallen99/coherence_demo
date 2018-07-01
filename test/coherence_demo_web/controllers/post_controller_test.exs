@@ -7,6 +7,20 @@ defmodule CoherenceDemoWeb.PostControllerTest do
   @update_attrs %{body: "some updated body", title: "some updated title"}
   @invalid_attrs %{body: nil, title: nil}
 
+  setup %{conn: conn} do
+    user =
+      %CoherenceDemo.Coherence.User{}
+      |> CoherenceDemo.Coherence.User.changeset(%{
+        name:  "Foo",
+        email: "foo@bar.com",
+        password:  "foobar",
+        password_confirmation:  "foobar"
+      })
+      |> CoherenceDemo.Repo.insert!()
+
+    {:ok, conn: assign(conn, :current_user, user), user: user}
+  end
+
   def fixture(:post) do
     {:ok, post} = Blogs.create_post(@create_attrs)
     post
@@ -28,11 +42,14 @@ defmodule CoherenceDemoWeb.PostControllerTest do
 
   describe "create post" do
     test "redirects to show when data is valid", %{conn: conn} do
+      user = conn.assigns.current_user
       conn = post conn, post_path(conn, :create), post: @create_attrs
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == post_path(conn, :show, id)
 
+      conn = build_conn()
+      conn = assign(conn, :current_user, user)
       conn = get conn, post_path(conn, :show, id)
       assert html_response(conn, 200) =~ "Show Post"
     end
@@ -56,9 +73,12 @@ defmodule CoherenceDemoWeb.PostControllerTest do
     setup [:create_post]
 
     test "redirects when data is valid", %{conn: conn, post: post} do
+      user = conn.assigns.current_user
       conn = put conn, post_path(conn, :update, post), post: @update_attrs
       assert redirected_to(conn) == post_path(conn, :show, post)
 
+      conn = build_conn()
+      conn = assign(conn, :current_user, user)
       conn = get conn, post_path(conn, :show, post)
       assert html_response(conn, 200) =~ "some updated body"
     end
@@ -73,8 +93,12 @@ defmodule CoherenceDemoWeb.PostControllerTest do
     setup [:create_post]
 
     test "deletes chosen post", %{conn: conn, post: post} do
+      user = conn.assigns.current_user
       conn = delete conn, post_path(conn, :delete, post)
+
       assert redirected_to(conn) == post_path(conn, :index)
+      conn = build_conn()
+      conn = assign(conn, :current_user, user)
       assert_error_sent 404, fn ->
         get conn, post_path(conn, :show, post)
       end
